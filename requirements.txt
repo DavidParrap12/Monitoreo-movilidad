@@ -1,0 +1,7 @@
+kafka-python==2.2.15
+networkx==3.4.2
+scipy==1.15.2
+neo4j==5.28.1
+pyarrow==19.0.1
+boto3==1.37.38
+requests==2.32.3
