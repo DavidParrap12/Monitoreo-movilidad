@@ -66,7 +66,18 @@ python -m mobility.graph --origin 161 --destination 237
 
 El comando muestra el avance cada 100.000 viajes válidos y anuncia el cálculo de centralidad. `Ctrl+C` lo interrumpe; vuelva a ejecutarlo para obtener los CSV completos.
 
-Los nodos son zonas TLC y las aristas dirigidas son viajes observados. `trips` pondera PageRank; `mean_minutes` pondera intermediación y la ruta de menor tiempo medio. Los resultados quedan en `output/graph/zones.csv` y `routes.csv`. La carga opcional reemplaza los nodos `Zone` existentes en Neo4j. Para cargar el grafo, establezca `NEO4J_PASSWORD` en la sesión de PowerShell con el mismo valor guardado en `.env`:
+Los nodos son zonas TLC y las aristas dirigidas son viajes observados. `trips` pondera PageRank; `mean_minutes` pondera intermediación y la ruta de menor tiempo medio. Los resultados quedan en `output/graph/zones.csv` y `routes.csv`.
+
+Para explorar **todas las zonas y rutas en un HTML local** (resumen, rankings, filtros y caminos de menor tiempo medio), genere el panel a partir de esos CSV y ábralo en el navegador:
+
+```powershell
+.\.venv\Scripts\python.exe -m mobility.dashboard
+Start-Process .\output\graph\index.html
+```
+
+El archivo funciona sin servidor ni conexión a Neo4j. Es una instantánea: vuelva a ejecutar `mobility.graph` y después `mobility.dashboard` cuando cambien los datos.
+
+La carga opcional reemplaza los nodos `Zone` existentes en Neo4j. Para cargar el grafo, establezca `NEO4J_PASSWORD` en la sesión de PowerShell con el mismo valor guardado en `.env`:
 
 ```powershell
 $env:NEO4J_PASSWORD = ((Get-Content .env | Where-Object { $_ -match '^NEO4J_PASSWORD=' } | Select-Object -First 1) -replace '^NEO4J_PASSWORD=', '')
